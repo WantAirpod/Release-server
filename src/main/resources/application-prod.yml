@@ -1,18 +1,25 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  config:
+    activate:
+      on-profile: prod
 
   datasource:
-    url: jdbc:h2:mem:hodolog
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mariadb://rds주소/database이름
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: db계정
+    password: db계정 비밀번호
 
-  data:
-    web:
-      pageable:
-        max-page-size: 2000
-        default-page-size: 20
-        one-indexed-parameters: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        #show_sql: true
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
+        default_batch_fetch_size: 100
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
